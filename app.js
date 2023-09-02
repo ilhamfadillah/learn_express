@@ -10,6 +10,7 @@ const uri = "mongodb://localhost:27017/express_menu";
 mongoose.connect(uri).then(() => console.log("Database Connected!"));
 
 var indexRouter = require('./routes/index');
+var authRouter = require('./routes/auth');
 var seederRouter = require('./routes/seeder');
 var usersRouter = require('./routes/users');
 var menusRouter = require('./routes/menus');
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/auth', authRouter);
 app.use('/seeders', seederRouter);
 app.use('/users', usersRouter);
 app.use('/menus', menusRouter);
