@@ -4,7 +4,7 @@ const User = require('../models/user');
 const mongoose = require('mongoose');
 
 // generate random
-const JWT_SECRET = "9edaed989e4d7c7d3c53d79a2b363f0441b70c0c2c44c67c13c5e6f862e1dc3f3d5a2100d1b68e2599193815042b780c6a08bae669fcc65f893c1c4c0f9f7df7";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.register = async function (req, res, next) {
   const { email, password } = req.body;

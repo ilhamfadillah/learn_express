@@ -16,10 +16,10 @@ redisClient.on("end", function () {
   console.log("Redis client terputus dari server. Menutup semua koneksi.");
 });
 
-const DEFAULT_EXPIRATION = 3600;
+const apiUrl = 'https://fakestoreapi.com/products';
 
 exports.getAxios = async function (req, res, next) {
-  await axios.get('https://fakestoreapi.com/products', {
+  await axios.get(apiUrl, {
     timeout: 1000 // in milliseconds
   }).then(function (response) {
     res.status(200).json({ data: response.data });
@@ -33,9 +33,9 @@ exports.getAxiosRedis = async function (req, res, next) {
     if (products != null) {
       return res.json(JSON.parse(products));
     } else {
-      const { data } = await axios.get('https://fakestoreapi.com/products');
+      const { data } = await axios.get(apiUrl);
       redisClient.set("products", JSON.stringify(data), {
-        EX: 3600,
+        EX: process.env.REDIS_DEFAULT_EXPIRATION,
         NX: true
       });
       return res.json(data);

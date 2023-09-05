@@ -4,10 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config();
+
 // Mongodb Connection
 const mongoose = require("mongoose");
-const uri = "mongodb://localhost:27017/express_menu";
-mongoose.connect(uri).then(() => console.log("Database Connected!"));
+mongoose.connect(process.env.MONGO_URI).then(() => console.log("Database Connected!"));
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
